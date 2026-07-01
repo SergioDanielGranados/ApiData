@@ -41,8 +41,6 @@ public class OrderConsumerService {
 
     List<Order> listOrder = orderServices.findByOrderRefOrOrderStatusOrStoreName(params);
     log.info("Orders in DB OR {}",listOrder.toString());
-    log.info("Orders in DB  and {}",orderServices.findByOrderRefAndOrderStatusAndStoreName(params));
-    log.info("Orders in DB  container {}",orderServices.findByOrderRefAndOrderStatusAndStoreNameContainingIgnoreCase(params));
     orderReport.createSampleWorkbook(listOrder);
   }
 

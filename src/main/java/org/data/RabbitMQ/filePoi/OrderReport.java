@@ -3,6 +3,7 @@ package org.data.RabbitMQ.filePoi;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.List;
+import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
@@ -33,7 +34,7 @@ public class OrderReport {
     try (HSSFWorkbook workbook = new HSSFWorkbook()) {
 
 
-      final String SHEET_NAME = "Reporte Order por nombre";
+      final String SHEET_NAME = "Reporte Order por Parametros";
       final String[] COLUMN_HEADERS = { "Orden", "Código del producto", "Cantidad" ,"Canal de venta","Estatus de pedido (Fecha estimada de entrega)"};
 
       Sheet sheet = workbook.createSheet(SHEET_NAME);
@@ -53,15 +54,20 @@ public class OrderReport {
       int rowNum = 1;
 
       for (Order order : listOrder) {
-
+        log.info("order : {}",order.toString());
         for(String item : order.getItems()){
-          Row row = sheet.createRow(rowNum++);
+          Optional<Item> itemDto = Optional.ofNullable(itemServices.findFirstByItemId(item));
+          if(itemDto.isPresent() && !itemDto.isEmpty()){
+            Row row = sheet.createRow(rowNum++);
+            log.info("Item : {}",itemDto.toString());
+            Integer i= itemDto.get().getQuantity();
+            fullCells(row.createCell(0),order.getOrderRef());
+            fullCells(row.createCell(1),item);
+            fullCells(row.createCell(2),i);
+            fullCells(row.createCell(3),order.getCanal());
+            fullCells(row.createCell(4),order.getOrderStatus());
+          }
 
-          fullCells(row.createCell(0),order.getOrderRef());
-          fullCells(row.createCell(1),item);
-          fullCells(row.createCell(2),itemServices.findFirstByItemId(item));
-          fullCells(row.createCell(3),order.getCanal());
-          fullCells(row.createCell(4),order.getOrderStatus());
         }
 
       }

@@ -25,20 +25,9 @@ public class OrderServices {
     this.orderRepository = orderRepository;
   }
 
-
   public List<Order> findByOrderRefOrOrderStatusOrStoreName(OrderSearchParams orderSearchParams) {
     log.info("Obtencion de Order con findByOrderRefOrOrderStatusOrStoreName  : {}  in DB ", orderSearchParams.toString());
     return orderRepository.findByOrderRefOrOrderStatusOrStoreName(orderSearchParams.getOrderRef(),orderSearchParams.getOrderStatus(),orderSearchParams.getStoreName());
-  }
-
-  public List<Order> findByOrderRefAndOrderStatusAndStoreNameContainingIgnoreCase(OrderSearchParams orderSearchParams) {
-    log.info("Obtencion de Order con findByOrderRefAndOrderStatusAndStoreNameContainingIgnoreCase  : {}  in DB ", orderSearchParams.toString());
-    return orderRepository.findByOrderRefAndOrderStatusAndStoreNameContainingIgnoreCase(orderSearchParams.getOrderRef(),orderSearchParams.getOrderStatus(),orderSearchParams.getStoreName());
-  }
-
-  public List<Order> findByOrderRefAndOrderStatusAndStoreName(OrderSearchParams orderSearchParams) {
-    log.info("Obtencion de Order con findByOrderRefAndOrderStatusAndStoreNameContainingIgnoreCase  : {}  in DB ", orderSearchParams.toString());
-    return orderRepository.findByOrderRefAndOrderStatusAndStoreName(orderSearchParams.getOrderRef(),orderSearchParams.getOrderStatus(),orderSearchParams.getStoreName());
   }
 
 }

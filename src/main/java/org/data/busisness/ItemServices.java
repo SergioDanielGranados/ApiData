@@ -31,7 +31,7 @@ public class ItemServices {
   }
 
   public Item findFirstByItemId(String ItemId) {
-    log.info("Obtencion de Items con findByDisplayNameContaining displayName : {}  in DB ", ItemId);
+    log.info("Obtencion de Items con findFirstByItemId  : {}  in DB ", ItemId);
     return itemRepository.findFirstByItemId(ItemId);
   }
 
