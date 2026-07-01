@@ -1,4 +1,4 @@
-package org.data.dao.mongo.entity;
+package org.data.mongo.entity;
 
 import java.io.Serializable;
 import java.util.List;

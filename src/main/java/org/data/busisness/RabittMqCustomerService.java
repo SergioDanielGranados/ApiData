@@ -1,26 +1,28 @@
 package org.data.busisness;
 
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.data.RabbitMQ.RabbitMqConfig;
 
+@Slf4j
 @Service
 public class RabittMqCustomerService {
 
-  private final MongoServices mongoServices;
+  private final UserServices userServices;
 
   @Autowired
-  public RabittMqCustomerService(MongoServices mongoServices) {
-    this.mongoServices = mongoServices;
+  public RabittMqCustomerService(UserServices userServices) {
+    this.userServices = userServices;
   }
 
 
   @RabbitListener(queues = RabbitMqConfig.USER_QUEUE_NAME)
   public void consumeMessageFromQueue(String message) {
-    System.out.println("Message received: " + message);
-    mongoServices.deleteUserById(message);
+    log.info("Inicia Eliminacion Usuario {} ", message);
+    userServices.deleteUserById(message);
   }
 
 }

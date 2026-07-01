@@ -1,4 +1,4 @@
-package org.data.dao.mongo.config;
+package org.data.mongo.config;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -9,8 +9,8 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @Configuration
-@EnableMongoRepositories(basePackages = "org.data.dao.mongo")
-@EntityScan(basePackages = {"org.data.dao.mongo.entity"})
+@EnableMongoRepositories(basePackages = "org.data.mongo.repository")
+@EntityScan(basePackages = {"org.data.mongo.entity"})
 public class MongoConfig {
 
   @Bean

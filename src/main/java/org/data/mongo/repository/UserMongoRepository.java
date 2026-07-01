@@ -1,9 +1,9 @@
-package org.data.dao.mongo;
+package org.data.mongo.repository;
 
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
-import org.data.dao.mongo.entity.User;
+import org.data.mongo.entity.User;
 
 
 @Repository

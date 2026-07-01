@@ -1,11 +1,8 @@
 package org.data.controller;
 
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.data.busisness.MongoServices;
+import org.data.busisness.UserServices;
 
 /**
  * Clase de ejemplo para demostración de Javadoc.
@@ -16,17 +13,17 @@ import org.data.busisness.MongoServices;
 @RestController
 public class DataBaseTestController {
 
-  private final MongoServices mongoServices;
+  private final UserServices userServices;
 
   /**
    * Suma dos números enteros.
    *
-   * @param mongoServices El segundo número a sumar.
+   * @param userServices El segundo número a sumar.
    * @return La suma de ambos números.
    */
   @Autowired
-  private DataBaseTestController( MongoServices mongoServices) {
-    this.mongoServices =  mongoServices;
+  private DataBaseTestController( UserServices userServices) {
+    this.userServices = userServices;
   }
 
 
