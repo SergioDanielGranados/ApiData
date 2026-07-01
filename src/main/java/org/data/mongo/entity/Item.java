@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
@@ -17,6 +18,7 @@ public class Item implements Serializable {
   private String itemId;
   private String skuId;
   private Integer quantity;
+  @TextIndexed
   private String displayName;
   private String deliveryStatus;
 
