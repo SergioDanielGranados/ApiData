@@ -2,6 +2,9 @@ package org.data.RabbitMQ.filePoi;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
@@ -28,11 +31,12 @@ public class OrderReport {
     this.itemServices = itemServices;
   }
 
-  public void createSampleWorkbook(List<Order> listOrder) {
+  public void createWorkbook(List<Order> listOrder) {
     log.info("Generando Excel OrderReport");
 
     try (HSSFWorkbook workbook = new HSSFWorkbook()) {
 
+      LocalDateTime date = LocalDateTime.now();
 
       final String SHEET_NAME = "Reporte Order por Parametros";
       final String[] COLUMN_HEADERS = { "Orden", "Código del producto", "Cantidad" ,"Canal de venta","Estatus de pedido (Fecha estimada de entrega)"};
@@ -55,19 +59,20 @@ public class OrderReport {
 
       for (Order order : listOrder) {
         log.info("order : {}",order.toString());
+
         for(String item : order.getItems()){
+
+          Row row = sheet.createRow(rowNum++);
+          fullCells(row.createCell(1),item);
+          fullCells(row.createCell(0),order.getOrderRef());
+          fullCells(row.createCell(3),order.getCanal());
+          fullCells(row.createCell(4),order.getOrderStatus());
           Optional<Item> itemDto = Optional.ofNullable(itemServices.findFirstByItemId(item));
           if(itemDto.isPresent() && !itemDto.isEmpty()){
-            Row row = sheet.createRow(rowNum++);
             log.info("Item : {}",itemDto.toString());
             Integer i= itemDto.get().getQuantity();
-            fullCells(row.createCell(0),order.getOrderRef());
-            fullCells(row.createCell(1),item);
             fullCells(row.createCell(2),i);
-            fullCells(row.createCell(3),order.getCanal());
-            fullCells(row.createCell(4),order.getOrderStatus());
           }
-
         }
 
       }
@@ -78,7 +83,8 @@ public class OrderReport {
 
 
       // 2. Define your file path
-      String filePath = "E:\\Liverpool\\Workspace Repo\\Reportes\\ReporteOrderPorParametros.xls";
+      String filePath = "E:\\Liverpool\\Workspace Repo\\Reportes\\ReporteOrderPorParametros"+date.atZone(
+          ZoneId.systemDefault()).toInstant().toEpochMilli()+".xls";
 
       // 3. Write and save the file
       try (FileOutputStream fileOut = new FileOutputStream(new File(filePath))) {

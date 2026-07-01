@@ -10,7 +10,7 @@ public interface OrderRepository extends MongoRepository<Order, String> {
 
   List<Order> findByOrderRefOrOrderStatusOrStoreName(String orderRef, String orderStatus, String storeName);
 
-
+  List<Order> findByUserId(String userId);
 
   List<Order> findByOrderRefAndOrderStatusAndStoreNameContainingIgnoreCase(String orderRef, String orderStatus, String storeName);
 

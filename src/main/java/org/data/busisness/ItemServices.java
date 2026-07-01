@@ -35,4 +35,9 @@ public class ItemServices {
     return itemRepository.findFirstByItemId(ItemId);
   }
 
+  public List<Item> getAll() {
+    log.info("Obtencion de Items con getAll  " );
+    return itemRepository.findAll();
+  }
+
 }

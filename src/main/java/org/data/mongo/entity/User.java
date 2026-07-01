@@ -27,5 +27,5 @@ public class User implements Serializable {
   private String aMaterno;
   private String email;
   private List<String> orders;
-
+  private String direccion;
 }

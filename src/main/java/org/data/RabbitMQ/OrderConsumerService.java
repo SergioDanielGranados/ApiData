@@ -1,6 +1,7 @@
 package org.data.RabbitMQ;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.data.RabbitMQ.filePoi.ItemReport;
@@ -38,10 +39,16 @@ public class OrderConsumerService {
     log.info("Recepcion de mensaje {} en la cola {} ", message,OrderMqConfig.ORDER_QUEUE_NAME);
 
     OrderSearchParams params = ojectMapper.readValue(message, OrderSearchParams.class);
+    List<Order> listOrder = new ArrayList<>();
 
-    List<Order> listOrder = orderServices.findByOrderRefOrOrderStatusOrStoreName(params);
+    if(params.getOrderRef().isBlank() && params.getOrderStatus().isBlank() && params.getStoreName().isBlank() ){
+      listOrder = orderServices.findAll();
+    }else {
+      listOrder = orderServices.findByOrderRefOrOrderStatusOrStoreName(params);
+    }
+
     log.info("Orders in DB OR {}",listOrder.toString());
-    orderReport.createSampleWorkbook(listOrder);
+    orderReport.createWorkbook(listOrder);
   }
 
 }

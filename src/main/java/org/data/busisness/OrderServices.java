@@ -30,4 +30,14 @@ public class OrderServices {
     return orderRepository.findByOrderRefOrOrderStatusOrStoreName(orderSearchParams.getOrderRef(),orderSearchParams.getOrderStatus(),orderSearchParams.getStoreName());
   }
 
+  public List<Order> findByUserId(String  userId) {
+    log.info("Obtencion de Orders con findByUserId  : {}  in DB ", userId);
+    return orderRepository.findByUserId(userId);
+  }
+
+  public List<Order> findAll() {
+    log.info("Obtencion de Orders con findAll   ");
+    return orderRepository.findAll();
+  }
+
 }
