@@ -13,11 +13,20 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.data.mongo.entity.Item;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 @Slf4j
+@Service
 public class ItemReport {
 
-  public static void createWorkbook(List<Item> listItem) {
+  @Value("${reports.data.prueba.liverpool.path}")
+  private String path;
+
+  public ItemReport() {
+  }
+
+  public void createWorkbook(List<Item> listItem) {
     log.info("Generando Excel ItemReport");
 
     try (HSSFWorkbook workbook = new HSSFWorkbook()) {
@@ -61,7 +70,7 @@ public class ItemReport {
 
 
       // 2. Define your file path
-      String filePath = "E:\\Liverpool\\Workspace Repo\\Reportes\\ReporteItemsPorDisplayName"+date.atZone(
+      String filePath = path+"ReporteItemsPorDisplayName"+date.atZone(
           ZoneId.systemDefault()).toInstant().toEpochMilli()+".xls";
 
       // 3. Write and save the file

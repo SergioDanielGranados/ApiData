@@ -18,6 +18,7 @@ import org.data.busisness.OrderServices;
 import org.data.mongo.entity.Item;
 import org.data.mongo.entity.Order;
 import org.data.mongo.entity.User;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -26,6 +27,9 @@ public class UserReport {
 
   private final ItemServices itemServices;
   private final OrderServices orderServices;
+
+  @Value("${reports.data.prueba.liverpool.path}")
+  private String path;
 
   public UserReport(ItemServices itemServices, OrderServices orderServices) {
     this.itemServices = itemServices;
@@ -106,7 +110,7 @@ public class UserReport {
 
 
       // 2. Define your file path
-      String filePath = "E:\\Liverpool\\Workspace Repo\\Reportes\\ReportePedidosUsuarios"+date.atZone(
+      String filePath = path+"ReportePedidosUsuarios"+date.atZone(
           ZoneId.systemDefault()).toInstant().toEpochMilli()+".xls";
 
       // 3. Write and save the file

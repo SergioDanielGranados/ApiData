@@ -19,11 +19,14 @@ public class ItemConsumerService {
 
   private final ItemServices itemServices;
   private final ObjectMapper ojectMapper ;
+  private final ItemReport itemReport; ;
 
   @Autowired
-  public ItemConsumerService(ItemServices itemServices, ObjectMapper ojectMapper) {
+  public ItemConsumerService(ItemServices itemServices, ObjectMapper ojectMapper,
+                             ItemReport itemReport) {
     this.itemServices = itemServices;
     this.ojectMapper = ojectMapper;
+    this.itemReport = itemReport;
   }
 
 
@@ -41,7 +44,7 @@ public class ItemConsumerService {
     }
 
     log.info("Items in DB {}",listItem.toString());
-    ItemReport.createWorkbook(listItem);
+    itemReport.createWorkbook(listItem);
   }
 
 }
